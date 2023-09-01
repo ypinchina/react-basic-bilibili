@@ -37,3 +37,6 @@ Number类型，不能 ++1 1++ 等操作
 数组不能push slice方法，新增要用 ```this.setState({ arr: [...this.state.arr, 4] })```  
 数组删除要用filter方法
 对象修改属性值不稚直接修改，要 ```this.setState({ obj: {...this.state.obj, name: 'yip' } })```
+
+#### 受控表单组件
+什么是受控表单组件？ 答： input框自己的状态被React组件状态控制
