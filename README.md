@@ -38,5 +38,14 @@ Number类型，不能 ++1 1++ 等操作
 数组删除要用filter方法
 对象修改属性值不稚直接修改，要 ```this.setState({ obj: {...this.state.obj, name: 'yip' } })```
 
-#### 受控表单组件
-什么是受控表单组件？ 答： input框自己的状态被React组件状态控制
+#### 受控表单组件  
+什么是受控表单组件？ 答： input框自己的状态被React组件状态控制  
+
+#### 什么是非受控组件？  
+非受控组件就是通过手动操作dom的方式获取文本框的值，文本框的状态不受react组件的state中的状态控制，直接通过原生dom获取输入框的值
+
+* 实现步骤  
+1. 导入createRef 函数  
+2. 调用createRef函数，创建一个ref对象，存储到名为msgRef的实例属性中  
+3. 为input添加ref属性，值为msgRef  
+4. 在按钮的事件处理程序中，通过msgRef.current即可拿到input对应的dom元素，而其中msgRef.current.value拿到的就是文本框的值  
