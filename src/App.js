@@ -1,6 +1,7 @@
 import './index.css'
 import avatar from './images/avatar.png'
 import React, { createRef } from 'react'
+import { v4 as uuid } from 'uuid'
 
 // 时间格式化
 function formatDate (time) {
@@ -63,7 +64,7 @@ class App extends React.Component {
   }
   submitComments = () => {
     const newComment = {
-      id: 4,
+      id: uuid(),
       author: '陈永仁',
       comment: this.textareaVal.current.value,
       time: new Date(),
@@ -72,6 +73,23 @@ class App extends React.Component {
     }
     this.setState({
       list: [...this.state.list, newComment]
+    })
+  }
+  toggleLike = (item, flag) => {
+    // flag 0 点击点赞按钮 1 点击点踩按钮
+    this.setState({
+      list: this.state.list.map(i => {
+        if (i.id === item.id) {
+          var newAttitude
+          flag ? (newAttitude = i.attitude === -1 ? 0 : -1) : (newAttitude = i.attitude === 1 ? 0 : 1)
+          return {
+            ...i,
+            attitude: newAttitude
+          }
+        } else {
+          return i
+        }
+      })
     })
   }
   render () {
@@ -131,10 +149,10 @@ class App extends React.Component {
                     <p className="text">{item.comment}</p>
                     <div className="info">
                       <span className="time">{formatDate(item.time)}</span>
-                      <span className={item.attitude === 1 ? 'like liked' : 'like'}>
+                      <span className={item.attitude === 1 ? 'like liked' : 'like'} onClick={() => this.toggleLike(item, 0)}>
                         <i className="icon" />
                       </span>
-                      <span className={item.attitude === -1 ? 'hate hated' : 'hate'}>
+                      <span className={item.attitude === -1 ? 'hate hated' : 'hate'} onClick={() => this.toggleLike(item, 1)}>
                         <i className="icon" />
                       </span>
                       <span className="reply btn-hover" onClick={() => this.deleteComment(item)}>删除</span>
