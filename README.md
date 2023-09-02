@@ -1,51 +1,70 @@
-# react-basic-bilibili
-一个在b站学习react的基础项目，学习地址为： https://www.bilibili.com/video/BV1Z44y1K7Fj
+# Getting Started with Create React App
 
-## react 18的问题，需要删除index.js下  <React.StrictMode>严格模式节点。  
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-### react有两种组件  
-1. 函数组件  
- 函数组件有以下约定：  
-* 函数首字母必须大写  
-* 函数必须要有返回值，返回值为需要渲染的DOM节点组件结构  
-* 组件就像HTML标签一样可以直接渲染到页面中
-* 使用函数名称作为组件标签名称，该标签既可以成对出现也可以自闭合  
+## Available Scripts
 
-2. 类组件  
- 类组件也有如下的规定
-* 类组件名首字母也需要大写
-* 类组件应当继承React.Component父类，从而获得父类的方法和属性  
-* 类组件内部必须提供render方法，render方法必须有返回值，返回值是需要渲染的组件DOM结构  
+In the project directory, you can run:
 
-#### 组件状态
+### `npm start`
 
-能够为组件添加状态和修改状态的值  
+Runs the app in the development mode.\
+Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
-* tips  在hooks出现之前，组件状态只能以类组件的方式表现。此时函数组件没有状态，称为无状态组件    
+The page will reload when you make changes.\
+You may also see any lint errors in the console.
 
-* 注意 在react中修改状态是和Vue不一样的，不能直接给状态赋值，而是需要通过setState方法(通过继承React.Component得到)来统一修改状态  
+### `npm test`
 
-* React中编写组件其实就是编写原生js类或者函数  
+Launches the test runner in the interactive watch mode.\
+See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
-**目前新项目已经很少人会去写类组件了** ，但是需要学习是为了应付当遇到老项目时要维护类组件的代码。  
+### `npm run build`
 
-#### React 的状态不可变
+Builds the app for production to the `build` folder.\
+It correctly bundles React in production mode and optimizes the build for the best performance.
 
-**概念： 不要直接修改状态的值，而是基于当前状态创建新的状态值**
+The build is minified and the filenames include the hashes.\
+Your app is ready to be deployed!
 
-Number类型，不能 ++1 1++ 等操作
-数组不能push slice方法，新增要用 ```this.setState({ arr: [...this.state.arr, 4] })```  
-数组删除要用filter方法
-对象修改属性值不稚直接修改，要 ```this.setState({ obj: {...this.state.obj, name: 'yip' } })```
+See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-#### 受控表单组件  
-什么是受控表单组件？ 答： input框自己的状态被React组件状态控制  
+### `npm run eject`
 
-#### 什么是非受控组件？  
-非受控组件就是通过手动操作dom的方式获取文本框的值，文本框的状态不受react组件的state中的状态控制，直接通过原生dom获取输入框的值
+**Note: this is a one-way operation. Once you `eject`, you can't go back!**
 
-* 实现步骤  
-1. 导入createRef 函数  
-2. 调用createRef函数，创建一个ref对象，存储到名为msgRef的实例属性中  
-3. 为input添加ref属性，值为msgRef  
-4. 在按钮的事件处理程序中，通过msgRef.current即可拿到input对应的dom元素，而其中msgRef.current.value拿到的就是文本框的值  
+If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+
+Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+
+You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+
+## Learn More
+
+You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+
+To learn React, check out the [React documentation](https://reactjs.org/).
+
+### Code Splitting
+
+This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+
+### Analyzing the Bundle Size
+
+This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+
+### Making a Progressive Web App
+
+This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+
+### Advanced Configuration
+
+This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+
+### Deployment
+
+This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+
+### `npm run build` fails to minify
+
+This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
