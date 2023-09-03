@@ -110,3 +110,40 @@ const { Provider, Consumer } = createContext()
     {value => /* 基于 context 值进行渲染*/}
 </Consumer>
 ```  
+
+### React组件进阶
+
+children属性是什么
+表示该组件的子节点，只要组件内部有子节点，props中就有该属性
+children可以是什么
+1. 普通文本
+2. 普通标签元素
+3. 函数 / 对象
+4. JSX
+
+#### React props校验规则 （此处省略） 要写的时候再看文档补吧
+
+
+### React生命周期
+
+* 只有类组件有生命周期，函数组件没有
+react版本16.4前后生命周期不一样
+
+#### 生命周期 -  挂载阶段
+顺序
+constructor -> render -> componentDidMount  
+
+constructor： 初始化阶段只执行一次  
+render： 只要组件渲染或者重新渲染都会执行; 作用：渲染UI（千万不要在render里面调用setState，会死循环）  
+componentDidMount: 组件挂载（完成DOM渲染）后执行，初始化的时候只试行一次；作用：发请求和DOM操作  
+
+#### 生命周期 -  更新阶段
+顺序
+render -> componentDidUpdate
+每次更新阶段都会执行以上一次
+
+componentDidUpdate 触发时机： 组件更新后（DOM渲染完毕）；  作用： DOM操作。获取DOM更新后的内容，**不要调用setState**
+
+#### 生命周期 - 卸载阶段
+
+componentWillUnmount 触发时机： 组件卸载（从页面上消失）  作用：执行清理工作（比如清理定时器）
