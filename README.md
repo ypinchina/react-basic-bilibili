@@ -81,3 +81,32 @@ Number类型，不能 ++1 1++ 等操作
 #### 子传父实现
 
 * 口诀： 父组件给子组件传递回调函数，子组件调用 核心是父组件给子组件传递方法
+
+#### 兄弟组件通信
+
+弟传父，父传兄
+
+#### 爷孙，曾重孙组件通信
+
+类似Vue 2.7版本出的provide和inject
+
+* 实现步骤  
+1. 创建Context对象 导出 Provider 和 Consumer对象   
+
+```
+const { Provider, Consumer } = createContext()
+```  
+2. 使用Provider包裹上层组件提供数据   
+
+```
+<Provider value={this.state.message}>  
+    {/* 根组件 */}
+</Provider>  
+```
+ 
+3. 需要用到数据的组件使用Consumer包裹获取数据   
+```
+<Consumer >
+    {value => /* 基于 context 值进行渲染*/}
+</Consumer>
+```  
