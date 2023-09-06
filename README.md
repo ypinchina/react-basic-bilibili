@@ -171,4 +171,55 @@ class组件就像一个厚重的‘战舰’ 一样，大而全，提供了很�
 
 ### useState使用  
 
-count 与setCount修改变量
+```[name, setName] = useState(value)```
+* 数组内的属性名可以自定义，但是顺序不能改变，value是属性的初始值
+
+* setName函数不能直接修改name的原值，只能生成一个新值替换原值
+
+### hooks 函数组件的更新过程
+
+函数组件使用 useState hook 后的执行过程，以及状态值的变化
+
+* ● 组件第一次渲染 
+  a. 从头开始执行该组件中的代码逻辑
+  b. 调用 useState(0) 将传入的参数作为状态初始值，即：0
+  c. 渲染组件，此时，获取到的状态 count 值为： 0
+* ● 组件第二次渲染 
+  a. 点击按钮，调用 setCount(count + 1) 修改状态，因为状态发生改变，所以，该组件会重新渲染
+  b. 组件重新渲染时，会再次执行该组件中的代码逻辑
+  c. 再次调用 useState(0)，此时 React 内部会拿到最新的状态值而非初始值，比如，该案例中最新的状态值为 1
+  d. 再次渲染组件，此时，获取到的状态 count 值为：1
+
+**注意：useState 的初始值(参数)只会在组件第一次渲染时生效。**也就是说，以后的每次渲染，useState 获取到都是最新的状态值，React 组件会记住每次最新的状态值
+
+### useState使用规则
+1. useState可以执行多次，每次都是绑定一对相互独立，互不影响
+```
+function List(){
+  // 以字符串为初始值
+  const [name, setName] = useState('cp')
+  // 以数组为初始值
+  const [list,setList] = useState([])
+  // 以布尔值作为初始值
+  const [flag, setFlag] = useState(true)
+}
+```
+2.  useState 注意事项   
+  a.  只能出现在函数组件或者其他hook函数中   
+  b.  不能嵌套在if/for/其它函数中（react按照hooks的调用顺序识别每一个hook）   
+
+
+### useEffect
+
+1. 理解函数副作用
+
+
+什么是副作用? 
+副作用是相对于主作用来说的，一个函数除了主作用，其他的作用就是副作用。对于 React 组件来说，主作用就是根据数据（state/props）渲染 UI，除此之外都是副作用（比如，手动修改 DOM）
+
+常见的副作用
+1. 数据请求 ajax发送
+2. 手动修改dom
+3. localstorage操作
+
+useEffect函数的作用就是为react函数组件提供副作用处理的！
