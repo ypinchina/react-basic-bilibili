@@ -1,10 +1,8 @@
-import { useState } from "react"
+import useWindowScroll from './3.useWindowScroll'
 function App () {
-  const [count, setCount] = useState(0)
+  const y = useWindowScroll()
   return (
-    <div className="App">
-      <button onClick={() => setCount(count + 1)}>{count}</button>
-    </div>
+    <div style={{ height: '12000px' }}>{y}</div>
   )
 }
 
