@@ -1,19 +1,19 @@
-
-import { Link, Route, Routes, BrowserRouter } from 'react-router-dom'
-import { Home } from './router/Home'
-import { About } from './router/About'
+import { BrowserRouter, Route, Routes } from "react-router-dom"
+import Login from './router/Login.js'
+import Layout from './router/Layout'
+import Article from "./router/Article.js"
+import Board from "./router/Board.js"
 function App () {
   return (
-    <div className="App">
-      <BrowserRouter>
-        <Link to='/'>首页</Link>
-        <Link to='/about'>关于</Link>
-        <Routes>
-          <Route path='/' element={<Home></Home>}></Route>
-          <Route path='/about' element={<About></About>}></Route>
-        </Routes>
-      </BrowserRouter>
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Layout></Layout>}>
+          <Route path="/article" element={<Article></Article>}></Route>
+          <Route path="/board" element={<Board></Board>}></Route>
+        </Route>
+        <Route path="/login" element={<Login></Login>}></Route>
+      </Routes>
+    </BrowserRouter>
   )
 }
 

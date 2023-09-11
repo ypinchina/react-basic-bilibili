@@ -311,3 +311,49 @@ hooks中使用context
 补充：  
 1. 如果需要提供给子类的数据是不变的、静态的 建议放在index.js包裹
 2. 如果提供的数据需要修改，可以放在别的组件或者app.js进行包裹
+
+## react-router
+ 核心组件介绍
+### BrowserRouter
+
+作用： 包裹整个应用，一个react应用只需使用一次
+两种常用的router模式： 哈希模式和history模式,组件分别是HashRouter(有#) 和 BrowserRouter
+
+### Link 
+作用: 指定导航链接 ，完成跳转 渲染成a标签
+
+### Route 
+作用: 完成路由匹配
+
+
+### 编程式导航
+
+声明式 【 Link to】  vs  编程式 【调用路由方法进行路由跳转】
+概念:  通过js编程的方式进行路由页面跳转
+注: 如果在跳转时不想添加历史记录，可以添加额外参数replace 为true  
+```
+navigate('/about', { replace: true } )
+```
+
+### 路由传参
+
+1. searchParams传参
+
+2. params传参
+
+
+### 嵌套路由
+
+设计两个一级路由 login 和 layout
+设计两个二级路由 归属与Layout路由下：  article和 board
+
+
+### 默认路由设为 二级路由
+
+把你要渲染的二级路由的path=去掉， 加上index属性
+```
+  <Routes index element={<Article />}></Routes>
+```
+
+### 404路由
+当同级所有路由都没匹配到就匹配它 path=“*” element={<notFount>}
