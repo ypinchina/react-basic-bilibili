@@ -357,3 +357,37 @@ navigate('/about', { replace: true } )
 
 ### 404路由
 当同级所有路由都没匹配到就匹配它 path=“*” element={<notFount>}
+
+## mobx
+
+相当于vuex
+
+同类工具很多 还有三个
+1. redux
+2. dva
+3. recoil
+
+
+### mobx优势   
+
+1. 不需要写模板代码，纯JS即可 简单  
+
+2. 轻松实现最优渲染  
+
+依赖自动追踪，实现最小渲染优化  
+
+3. 架构自由  
+
+可移植, 可测试   
+
+
+### mobx 配置环境
+1. 一个create-react-app创建好的React项目环境
+2. mobx框架本身
+3. 一个用来链接mobx和React的中间件
+
+
+### mobx 计算属性
+
+get:
+
