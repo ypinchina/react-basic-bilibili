@@ -5,6 +5,8 @@ function App () {
     <div className="App">
       {countObj.count}
       <div><button onClick={() => { countObj.addCount() }}>+</button></div>
+      <div>{countObj.biggerThanTwoList.join('-')}</div>
+      <button onClick={() => countObj.addList()}>push</button>
     </div>
   )
 }
