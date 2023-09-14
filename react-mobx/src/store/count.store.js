@@ -15,5 +15,4 @@ class CountStore {
     this.list.push(7, 8, 9)
   }
 }
-const countObj = new CountStore()
-export default countObj
+export default CountStore
