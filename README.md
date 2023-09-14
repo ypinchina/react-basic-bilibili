@@ -396,3 +396,8 @@ get:
 1. 拆分模块js文件，每个模块中定义自己独立的state/action
 2. 在store/index.js中导入拆分之后的模块，进行模块组合
 3. 利用React的context的机制导出统一的useStore方法，给业务组件使用
+
+
+### mobx总结
+
+mobx-react-lite用于函数组件。类组件用mobx-react

@@ -1,6 +1,6 @@
 import { makeAutoObservable } from "mobx"
 class List {
-  list = ['vue', react]
+  list = ['vue', 'react']
   constructor() {
     makeAutoObservable(this)
   }
