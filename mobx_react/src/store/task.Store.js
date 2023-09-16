@@ -1,29 +1,33 @@
 
-import {  makeAutoObservable } from 'mobx'
-import {v4} from 'uuid'
+import { makeAutoObservable } from 'mobx'
 class TaskStore {
   list = [
     {
-      id:1,
+      id: 1,
       name: '学习react',
       isDone: true
     },
     {
-      id:2,
+      id: 2,
       name: '搞定mobx',
       isDone: true
     }
   ]
-  addListItem = (name) => {
-    let newUuid = v4()
-    this.list.push({
-      id: newUuid,
-      name,
-      isDone: false
-    })
+  addListItem = (newItem) => {
+    this.list.push(newItem)
   }
-  deleteListItem = (id) => {
-    this.list = this.list.filter(item => item.id !== id)
+  deleteListItem = (index) => {
+    this.list.splice(index, 1)
+  }
+  singleChange = (checked, id) => {
+    const result = this.list.find(item => item.id === id)
+    result.isDone = checked
+  }
+  get allChecked () {
+    return this.list.every(item => item.isDone)
+  }
+  allCheckChange = (allChecked) => {
+    this.list.forEach(item => item.isDone = allChecked)
   }
   constructor() {
     makeAutoObservable(this)
