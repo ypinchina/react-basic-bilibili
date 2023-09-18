@@ -403,3 +403,22 @@ get:
 mobx-react-lite用于函数组件。类组件用mobx-react
 
 ## PC react项目见react-pc
+
+run eject 命令用于释放react的webpack隐藏配置文件，这个过程不可逆
+
+也可以用三方插件，在不释放隐藏配置文件的情况下修改webpack配置，即使用craco
+
+
+### 使用craco修改路径别名
+### craco，给vscode输入路径的时候增加提示路径功能
+新增根目录jsconfig.json文件，填入下面代码
+```
+{
+  "compilerOptions": {
+    "baseUrl": "./",
+    "paths": {
+      "@/*": ["src/*"]
+    }
+  }
+}
+```
