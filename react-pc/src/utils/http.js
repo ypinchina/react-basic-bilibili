@@ -1,4 +1,5 @@
 import axios from 'axios'
+import Token from './token'
 
 const http = axios.create({
   baseURL: 'http://geek.itheima.net/v1_0',
@@ -6,6 +7,13 @@ const http = axios.create({
 })
 // 添加请求拦截器
 http.interceptors.request.use((config) => {
+  // 统一注入token
+  const tk = new Token()
+  const token = tk.getToken()
+  if (token) {
+    config.headers.Authorization = `Bearer ${token}`
+  }
+
   return config
 }, (error) => {
   return Promise.reject(error)

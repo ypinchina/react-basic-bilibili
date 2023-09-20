@@ -9,7 +9,7 @@ function Login () {
   const navigate = useNavigate()
   const onFinish = async (values) => {
     const { username, password } = values
-    await loginStore.getToken({
+    await loginStore.login({
       mobile: username,
       code: password
     })

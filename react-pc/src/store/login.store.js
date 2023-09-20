@@ -1,16 +1,17 @@
 import { makeAutoObservable } from 'mobx'
-import { http } from '@/utils/index'
-
+import { http, Token } from '@/utils/index'
+const tk = new Token()
 class LoginStore {
-  token = ''
+  token = tk.getToken() || ''
   constructor() {
     makeAutoObservable(this)
   }
-  getToken = async ({ mobile, code }) => {
+  login = async ({ mobile, code }) => {
     const res = await http.post('http://geek.itheima.net/v1_0/authorizations', {
       mobile, code
     })
     this.token = res.data.token
+    tk.setToken(this.token)
   }
 }
 
