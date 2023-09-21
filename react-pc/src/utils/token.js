@@ -7,7 +7,7 @@ class Token {
     return window.localStorage.getItem(this.key)
   }
   removeToken = () => {
-    return window.localStorage.removeItemItem(this.key)
+    return window.localStorage.removeItem(this.key)
   }
 }
 

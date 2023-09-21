@@ -13,6 +13,10 @@ class LoginStore {
     this.token = res.data.token
     tk.setToken(this.token)
   }
+  logout = () => {
+    tk.removeToken()
+    this.token = ''
+  }
 }
 
 export default LoginStore
