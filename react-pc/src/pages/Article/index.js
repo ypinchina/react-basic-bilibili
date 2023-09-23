@@ -1,6 +1,6 @@
 import locale from 'antd/es/date-picker/locale/zh_CN'
 import 'dayjs/locale/zh-cn'
-import { Table, Tag, Space, Card, Breadcrumb, Form, Button, Radio, DatePicker, Select } from 'antd'
+import { message, Table, Tag, Space, Card, Breadcrumb, Form, Button, Radio, DatePicker, Select } from 'antd'
 import './index.scss'
 import { EditOutlined, DeleteOutlined } from '@ant-design/icons'
 import img404 from '@/assets/error.png'
@@ -12,6 +12,14 @@ const { RangePicker } = DatePicker
 
 const Article = () => {
   const [channels, setChannels] = useState([])
+  const [article, setArticle] = useState({
+    list: [],
+    count: 0
+  })
+  const [params, setParams] = useState({
+    page: 1,
+    per_page: 10
+  })
   const getChannel = async () => {
     const res = await http.get('/channels')
     setChannels(res.data.channels)
@@ -19,13 +27,58 @@ const Article = () => {
   useEffect(() => {
     getChannel()
   }, [])
+  useEffect(() => {
+    const getArticle = async () => {
+      const res = await http.get('/mp/articles', { params })
+      if (res.message === 'OK') {
+        setArticle({
+          list: res.data.results,
+          count: res.data.total_count
+        })
+      }
+    }
+    getArticle()
+  }, [params])
+  const onSubitSearch = ({ status, channel_id, date }) => {
+    const temParams = {
+      page: 1,
+      per_page: 10
+    }
+    if (status !== -1) {
+      temParams.status = status
+    }
+    if (channel_id) {
+      temParams.channel_id = channel_id
+    }
+    if (date) {
+      temParams.begin_pubdate = date[0].format('YYYY-MM-DD')
+      temParams.end_pubdate = date[1].format('YYYY-MM-DD')
+    }
+    setParams(temParams)
+  }
+  const pageChange = (page) => {
+    setParams({
+      ...params,
+      page
+    })
+  }
+  const deleteArticle = async (val) => {
+    const res = await http.delete(`/mp/articles/${val.id}`)
+    if (res.message === 'OK') {
+      message.success('删除成功!')
+      setArticle({
+        list: article.list.filter(item => item.id !== val.id),
+        count: article.count - 1
+      })
+    }
+  }
   const columns = [
     {
       title: '封面',
       dataIndex: 'cover',
       width: 120,
       render: cover => {
-        return <img src={cover || img404} width={80} height={60} alt="" />
+        return <img src={cover.images[0] || img404} width={80} height={60} alt="" />
       }
     },
     {
@@ -64,25 +117,12 @@ const Article = () => {
               type="primary"
               danger
               shape="circle"
+              onClick={() => deleteArticle(data)}
               icon={<DeleteOutlined />}
             />
           </Space>
         )
       }
-    }
-  ]
-  const data = [
-    {
-      id: '8218',
-      comment_count: 0,
-      cover: {
-        images: ['http://geek.itheima.net/resources/images/15.jpg'],
-      },
-      like_count: 0,
-      pubdate: '2019-03-11 09:00:00',
-      read_count: 2,
-      status: 2,
-      title: 'wkwebview离线化加载h5资源解决方案'
     }
   ]
   return (
@@ -93,7 +133,7 @@ const Article = () => {
         }
         style={{ marginBottom: 20 }}
       >
-        <Form initialValues={{ status: -1 }}>
+        <Form initialValues={{ status: -1 }} onFinish={onSubitSearch}>
           <Form.Item label="状态" name="status">
             <Radio.Group>
               <Radio value={-1}>全部</Radio>
@@ -125,8 +165,16 @@ const Article = () => {
           </Form.Item>
         </Form>
       </Card>
-      <Card title={`根据筛选条件共查询到 count 条结果：`}>
-        <Table rowKey="id" columns={columns} dataSource={data} />
+      <Card title={`根据筛选条件共查询到 ${article.count} 条结果：`}>
+        <Table rowKey="id"
+          columns={columns}
+          dataSource={article.list}
+          pagination={{
+            pageSize: params.per_page,
+            total: article.count,
+            onChange: pageChange
+          }}
+        />
       </Card>
     </div>
   )
