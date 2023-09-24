@@ -15,7 +15,7 @@ import { useEffect } from 'react'
 const { Header, Sider } = Layout
 
 const GeekLayout = () => {
-  const { userStore, loginStore } = useStore()
+  const { userStore, loginStore, channelStore } = useStore()
   const navigate = useNavigate()
   const certainOk = () => {
     // 点击退出的回调方法
@@ -24,7 +24,8 @@ const GeekLayout = () => {
   }
   useEffect(() => {
     userStore.getUserInfo()
-  }, [userStore])
+    channelStore.getChannel()
+  }, [userStore, channelStore])
   const location = useLocation()
   return (
     <Layout>

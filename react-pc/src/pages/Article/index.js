@@ -6,12 +6,15 @@ import { EditOutlined, DeleteOutlined } from '@ant-design/icons'
 import img404 from '@/assets/error.png'
 import { useEffect, useState } from 'react'
 import { http } from '@/utils'
+import { useNavigate } from 'react-router-dom'
+import { observer } from 'mobx-react-lite'
+import useStore from '@/store'
+
 
 const { Option } = Select
 const { RangePicker } = DatePicker
 
 const Article = () => {
-  const [channels, setChannels] = useState([])
   const [article, setArticle] = useState({
     list: [],
     count: 0
@@ -20,13 +23,9 @@ const Article = () => {
     page: 1,
     per_page: 10
   })
-  const getChannel = async () => {
-    const res = await http.get('/channels')
-    setChannels(res.data.channels)
-  }
-  useEffect(() => {
-    getChannel()
-  }, [])
+
+  const { channelStore } = useStore()
+
   useEffect(() => {
     const getArticle = async () => {
       const res = await http.get('/mp/articles', { params })
@@ -72,6 +71,10 @@ const Article = () => {
       })
     }
   }
+  const navigate = useNavigate()
+  const editArticle = (val) => {
+    navigate(`/publish?id=${val.id}`)
+  }
   const columns = [
     {
       title: '封面',
@@ -112,7 +115,11 @@ const Article = () => {
       render: data => {
         return (
           <Space size="middle">
-            <Button type="primary" shape="circle" icon={<EditOutlined />} />
+            <Button type="primary"
+              shape="circle"
+              icon={<EditOutlined />}
+              onClick={() => editArticle(data)}
+            />
             <Button
               type="primary"
               danger
@@ -149,7 +156,7 @@ const Article = () => {
               placeholder="请选择文章频道"
               style={{ width: 120 }}
             >
-              {channels.map(channel => <Option key={channel.id} value={channel.id}>{channel.name}</Option>)}
+              {channelStore.channelList.map(channel => <Option key={channel.id} value={channel.id}>{channel.name}</Option>)}
             </Select>
           </Form.Item>
 
@@ -180,4 +187,4 @@ const Article = () => {
   )
 }
 
-export default Article
+export default observer(Article)
