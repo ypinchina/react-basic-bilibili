@@ -338,9 +338,29 @@ navigate('/about', { replace: true } )
 ### 路由传参
 
 1. searchParams传参
+ 传参时
+ ```
+ const navigate = useNavigate()
+ navigate('/article?id' + id)
+ ```
+ 接受参数时
+ ```
+ const [params] = useSearchParams()
+ const id = params.get(id)
+ ```
 
-2. params传参
+2. params传参  
 
+传参时  
+```
+ const navigate = useNavigate()
+navigate('/about/' + id)
+```
+接受参数时
+```
+ const params = useParams()
+ const id = params.id
+```
 
 ### 嵌套路由
 

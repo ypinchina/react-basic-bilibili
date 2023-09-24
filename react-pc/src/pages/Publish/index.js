@@ -18,7 +18,7 @@ import 'react-quill/dist/quill.snow.css'
 import './index.scss'
 import { useState } from 'react'
 import { http } from '@/utils'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useSearchParams } from 'react-router-dom'
 
 const { Option } = Select
 
@@ -30,6 +30,8 @@ const Publish = () => {
   const onUploadChange = ({ fileList }) => {
     setFileList(fileList)
   }
+  const [params] = useSearchParams()
+  const articleId = params.get('id')
   const changeImgCoverType = (e) => {
     setFileList([])
     setImgCoverType(e.target.value)
@@ -56,7 +58,7 @@ const Publish = () => {
     <div className="publish">
       <Card
         title={
-          <Breadcrumb separator=">" items={[{ title: '首页', href: "/" }, { title: '发布文章' }]} />
+          <Breadcrumb separator=">" items={[{ title: '首页', href: "/" }, { title: `${articleId ? '编辑' : '发布'}文章` }]} />
         }
       >
         <Form
@@ -123,7 +125,7 @@ const Publish = () => {
           <Form.Item wrapperCol={{ offset: 4 }}>
             <Space>
               <Button size="large" type="primary" htmlType="submit">
-                发布文章
+                {articleId ? '更新' : '发布'}文章
               </Button>
             </Space>
           </Form.Item>
