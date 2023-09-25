@@ -16,7 +16,7 @@ import useStore from '@/store'
 import { observer } from 'mobx-react-lite'
 import 'react-quill/dist/quill.snow.css'
 import './index.scss'
-import { useState } from 'react'
+import { useState, useRef, useEffect } from 'react'
 import { http } from '@/utils'
 import { useNavigate, useSearchParams } from 'react-router-dom'
 
@@ -36,6 +36,19 @@ const Publish = () => {
     setFileList([])
     setImgCoverType(e.target.value)
   }
+  const form = useRef(null)
+  useEffect(() => {
+    const getArticleInfo = async () => {
+      const res = await http.get(`/mp/articles/${articleId}`)
+      if (res.message === 'OK') {
+        console.log(form)
+        form.current.setFieldsValue(res.data)
+      }
+    }
+    if (articleId) {
+      getArticleInfo()
+    }
+  }, [articleId])
   const submitForm = async (values) => {
     const { channel_id, content, title, type } = values
     const params = {
@@ -66,6 +79,7 @@ const Publish = () => {
           wrapperCol={{ span: 16 }}
           initialValues={{ type: 1, content: '' }}
           onFinish={submitForm}
+          ref={form}
         >
           <Form.Item
             label="标题"
