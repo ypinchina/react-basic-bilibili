@@ -41,8 +41,9 @@ const Publish = () => {
     const getArticleInfo = async () => {
       const res = await http.get(`/mp/articles/${articleId}`)
       if (res.message === 'OK') {
-        console.log(form)
-        form.current.setFieldsValue(res.data)
+        const data = res.data
+        form.current.setFieldsValue({ ...data, type: data.cover.type })
+        setFileList(data.cover.images.map(item => ({ url: item })))
       }
     }
     if (articleId) {
