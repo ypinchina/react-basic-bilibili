@@ -25,17 +25,25 @@ const { Option } = Select
 const Publish = () => {
   const { channelStore } = useStore()
   const [fileList, setFileList] = useState([])
+
   const [imgCoverType, setImgCoverType] = useState(1)
   const navigate = useNavigate()
+  const coverRef = useRef([])
   const onUploadChange = ({ fileList }) => {
     setFileList(fileList)
+    coverRef.current = fileList
   }
   const [params] = useSearchParams()
   const articleId = params.get('id')
+
   const changeImgCoverType = (e) => {
-    setFileList([])
-    setImgCoverType(e.target.value)
+    const countVal = e.target.value
+    setImgCoverType(countVal)
+    if (coverRef.current) {
+      countVal === 1 ? setFileList([coverRef.current[0]]) : setFileList(coverRef.current)
+    }
   }
+
   const form = useRef(null)
   useEffect(() => {
     const getArticleInfo = async () => {
@@ -43,7 +51,9 @@ const Publish = () => {
       if (res.message === 'OK') {
         const data = res.data
         form.current.setFieldsValue({ ...data, type: data.cover.type })
-        setFileList(data.cover.images.map(item => ({ url: item })))
+        const temFileList = data.cover.images.map(item => ({ url: item }))
+        setFileList(temFileList)
+        coverRef.current = temFileList
       }
     }
     if (articleId) {
