@@ -72,9 +72,15 @@ const Publish = () => {
         images: fileList.map(item => item.response.data.url)
       }
     }
-    const res = await http.post('/mp/articles?draft=false', params)
+    let res = null
+    if (articleId) {
+      // 编辑
+      res = await http.put(`/mp/articles/${articleId}?draft=false`, params)
+    } else {
+      res = await http.post('/mp/articles?draft=false', params)
+    }
     if (res.message === 'OK') {
-      message.success('提交文章发布成功')
+      message.success(articleId ? '编辑成功' : '新增成功')
       navigate('/article')
     }
   }
