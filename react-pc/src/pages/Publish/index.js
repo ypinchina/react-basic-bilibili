@@ -30,8 +30,16 @@ const Publish = () => {
   const navigate = useNavigate()
   const coverRef = useRef([])
   const onUploadChange = ({ fileList }) => {
-    setFileList(fileList)
-    coverRef.current = fileList
+    const formatList = fileList.map(item => {
+      if (item.status === 'done') {
+        // 上传完毕
+        return { 'url': item.response.data.url }
+      } else {
+        return item
+      }
+    })
+    setFileList(formatList)
+    coverRef.current = formatList
   }
   const [params] = useSearchParams()
   const articleId = params.get('id')
@@ -39,7 +47,8 @@ const Publish = () => {
   const changeImgCoverType = (e) => {
     const countVal = e.target.value
     setImgCoverType(countVal)
-    if (coverRef.current) {
+    if (coverRef.current.length) {
+      // 当选择单图或者三图  而没有选择无图时。 不然切换无图和有图会报错BUG
       countVal === 1 ? setFileList([coverRef.current[0]]) : setFileList(coverRef.current)
     }
   }
@@ -69,7 +78,7 @@ const Publish = () => {
       type,
       cover: {
         type: type,
-        images: fileList.map(item => item.response.data.url)
+        images: fileList.map(item => item.url)
       }
     }
     let res = null
