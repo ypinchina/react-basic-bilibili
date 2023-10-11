@@ -449,3 +449,8 @@ run eject 命令用于释放react的webpack隐藏配置文件，这个过程不�
 ###  antd  Form实例对象有方法 setFieldsValue 用于回填表单数据
 
 * useState 修改的值不是同步更新的
+
+
+## 项目打包
+
+### react中项目打包不是内置的，需要自己安装sourceMap包（vue是内置的）
