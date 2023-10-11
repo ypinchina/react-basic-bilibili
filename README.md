@@ -454,3 +454,12 @@ run eject 命令用于释放react的webpack隐藏配置文件，这个过程不�
 ## 项目打包
 
 ### react中项目打包不是内置的，需要自己安装sourceMap包（vue是内置的）
+
+### 路由懒加载修改
+
+引入两个组件
+```
+import { lazy, Suspense } from 'react'
+```
+
+完结撒花！  完结学习本课程，结课于2023年10月11日晚上23时17分。
