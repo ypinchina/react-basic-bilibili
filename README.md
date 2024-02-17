@@ -27,7 +27,7 @@
 
 - tips 在 hooks 出现之前，组件状态只能以类组件的方式表现。此时函数组件没有状态，称为无状态组件
 
-- 注意 在 react 中修改状态是和 Vue 不一样的，不能直接给状态赋值，而是需要通过 setState 方法(通过继承 React.Component 得到)来统一修改状态
+- 注意 在 React 中修改状态是和 Vue 不一样的，不能直接给状态赋值，而是需要通过 setState 方法(通过继承 React.Component 得到)来统一修改状态。 因为React是单向数据绑定 ，而不是vue这种双向数据绑定的MVVM框架。  
 
 - React 中编写组件其实就是编写原生 js 类或者函数
 
