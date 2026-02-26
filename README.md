@@ -40,7 +40,7 @@
 Number 类型，不能 ++1 1++ 等操作
 数组不能 push slice 方法，新增要用 `this.setState({ arr: [...this.state.arr, 4] })`  
 数组删除要用 filter 方法
-对象修改属性值不稚直接修改，要 `this.setState({ obj: {...this.state.obj, name: 'yip' } })`
+对象修改属性值不能直接修改，要 `this.setState({ obj: {...this.state.obj, name: 'yip' } })`
 
 #### 受控表单组件
 

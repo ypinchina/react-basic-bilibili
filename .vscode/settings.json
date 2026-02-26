@@ -49,7 +49,7 @@
   "editor.formatOnSave": true,
   // eslint配置项，保存时自动修复错误
   "editor.codeActionsOnSave": {
-    "source.fixAll": true
+    "source.fixAll": "explicit"
   },
   "vetur.ignoreProjectWarning": true,
   // 让vetur使用vs自带的js格式化工具
